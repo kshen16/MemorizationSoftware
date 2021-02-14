@@ -1,0 +1,53 @@
+import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+    String text = "";
+    ArrayList<String> sentences = new ArrayList<String>();
+    int old_index = 0;
+    System.out.println("How many words are in your text? (Make sure it is less than 1000 words.)");
+    int textLength = scan.nextInt();
+
+    System.out.println("Paste your text here!");
+    for (int i = 0; i < textLength; i++) {
+      text = text + scan.next() + " ";
+    }
+    
+    for (int i = 0; i < text.length(); i++) {
+      if (text.charAt(i) == '.' || i == text.length() - 1) {
+        sentences.add(text.substring(old_index, i + 1));
+        old_index = i + 2;
+      }
+    }
+    for (int i = 0; i<30 ; i++) {
+      System.out.println();
+    }
+    System.out.println(
+        "Type 'check' and press enter after you recite a sentence to check, and type 'hint' and press enter if you're not sure how the next sentence starts, it will give you the next word.\n");
+    for (int i = 0; i < sentences.size(); i++) {
+      String a = scan.next();
+      String b = "check";
+      String c = "hint";
+      String sentence = sentences.get(i);
+      int index = 0;
+      while (!a.equals(b)) {
+        if (a.equals(c)) {
+          int spaceIndex = (sentence).indexOf(" ", index);
+          if (spaceIndex == -1) {
+            spaceIndex = (sentence).length();
+          }
+          System.out.println("here's the next word: " + sentence.substring(index, spaceIndex));
+          index = spaceIndex + 1;
+          a = scan.next();
+        }
+        if (index >= sentence.length() - 1) {
+          break;
+        }
+      }
+      if (a.equals(b)) {
+        System.out.println(sentence);
+      }
+    }
+  }
+}
